@@ -17,12 +17,14 @@ import { SessionProvider } from 'next-auth/react';
 import MainMenu from '@/app/_components/Menu';
 import AccountInfo from './AccountInfo';
 import { useSession } from 'next-auth/react';
+import { backdropClasses } from '@mui/material';
 const cssMainComponent = {
   flexGrow: 1,
   overflow: 'auto',
-  margin: '70px 10px 10px 10px',
-  borderRadius: 2,
+  margin: '60px 0px 0px 0px',
+  borderRadius: 1,
   height: '91vh',
+  backgroundColor: '#fff',
 };
 // Width of the drawer
 const drawerWidth: number = 240;
@@ -96,7 +98,7 @@ export default function Layout({ children }: LayoutProps) {
       <Box sx={{ display: 'flex', width: '100%' }}>
         {/* AppBar */}
         <AppBar position='absolute' open={open}>
-          <Toolbar style={{ borderBottom: '0.5px solid #516164' }}>
+          <Toolbar style={{ borderBottom: '0.5px solid #ccc' }}>
             {/* Menu Icon */}
             <IconButton
               edge='start'
