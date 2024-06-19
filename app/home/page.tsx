@@ -1,9 +1,11 @@
 import React from 'react';
 import Home from '@/app/home/_components/Home';
-export default async function page() {
+import { VocabularyRepository } from '@/app/_repositories/Vocalbulary';
+export default async function HomePages() {
+  const vocabulary = await VocabularyRepository.findMany();
   return (
     <div>
-      <Home />
+      <Home vocabulary={vocabulary} />
     </div>
   );
 }

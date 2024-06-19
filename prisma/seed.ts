@@ -44,13 +44,13 @@ async function main() {
   });
 
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@example.com' },
+    where: { email: 'vudungit92@gmail.com' },
     update: {},
     create: {
-      email: 'admin@example.com',
-      password: 'adminpassword', // You should hash the password in a real app
+      email: 'vudungit92@gmail.com',
+      password: '123123', // You should hash the password in a real app
       roleId: adminRole.id,
-      name: 'Admin User',
+      name: 'Vũ Dũng',
     },
   });
 
@@ -129,6 +129,92 @@ async function main() {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1 day from now
     },
   });
+  // Seed levels
+  const level1 = await prisma.level.create({
+    data: {
+      level: 'N5',
+      description: 'Beginner',
+    },
+  });
+
+  const level2 = await prisma.level.create({
+    data: {
+      level: 'N4',
+      description: 'Elementary',
+    },
+  });
+
+  // Seed vocabularies
+  const vocabulary1 = await prisma.vocabulary.create({
+    data: {
+      word: 'こんにちは',
+      hiragana: 'こんにちは',
+      reading: 'Konnichiwa',
+      meaning: 'Hello',
+      levelId: level1.id,
+      example: 'こんにちは、元気ですか？',
+      exampleMeaning: 'Hello, how are you?',
+    },
+  });
+
+  const vocabulary2 = await prisma.vocabulary.create({
+    data: {
+      word: 'ありがとう',
+      hiragana: 'ありがとう',
+      reading: 'Arigatou',
+      meaning: 'Thank you',
+      levelId: level2.id,
+      example: 'ありがとう、お願いします。',
+      exampleMeaning: 'Thank you, please.',
+    },
+  });
+
+  // Seed kanjis
+  const kanji1 = await prisma.kanji.create({
+    data: {
+      character: '日',
+      meaning: 'Sun, Day',
+      levelId: level1.id,
+      kunyomi: 'ひ、-び、-か',
+      onyomi: 'ニチ、ジツ',
+      example: '日本',
+      explanation: 'Japan',
+    },
+  });
+
+  const kanji2 = await prisma.kanji.create({
+    data: {
+      character: '月',
+      meaning: 'Moon, Month',
+      levelId: level2.id,
+      kunyomi: 'つき',
+      onyomi: 'ゲツ、ガツ',
+      example: '月曜日',
+      explanation: 'Monday',
+    },
+  });
+
+  // Seed grammars
+  const grammar1 = await prisma.grammar.create({
+    data: {
+      structure: '〜てください',
+      explanation: 'Please do ~',
+      example: '食べてください (Tabete kudasai) - Please eat',
+      levelId: level1.id,
+    },
+  });
+
+  const grammar2 = await prisma.grammar.create({
+    data: {
+      structure: '〜たり〜たりする',
+      explanation: 'Doing things such as ~ and ~',
+      example:
+        '日本に行ったり、韓国に行ったりします。(Nihon ni ittari, Kankoku ni ittari shimasu) - I go to Japan, and I also go to Korea.',
+      levelId: level2.id,
+    },
+  });
+
+  console.log('Seeding completed!');
 
   console.log({
     user1,
