@@ -70,3 +70,48 @@ model Role {
   name  String @unique
   users User[]
 }
+
+model Vocabulary {
+  id             String   @id @default(cuid())
+  word           String //Từ vựng tiếng Nhật.
+  hiragana       String //Phiên âm của từ vựng.
+  reading        String //Phiên âm của từ vựng.
+  meaning        String //Nghĩa của từ vựng.
+  example        String //Ví dụ
+  exampleMeaning String //Nghĩa của ví dụ
+  updatedAt      DateTime @updatedAt
+  level          Level    @relation(fields: [levelId], references: [id])
+  levelId        String
+}
+
+model Kanji {
+  id          String   @id @default(cuid())
+  character   String //Kanji
+  meaning     String //Nghĩa của Kanji
+  onyomi      String //Âm on
+  kunyomi     String //Âm kun
+  example     String //Ví dụ
+  explanation String //Giải thích
+  updatedAt   DateTime @updatedAt
+  level       Level    @relation(fields: [levelId], references: [id])
+  levelId     String
+}
+
+model Grammar {
+  id          String   @id @default(cuid())
+  structure   String //Cấu trúc ngữ pháp
+  explanation String //Giải thích
+  example     String //Ví dụ
+  updatedAt   DateTime @updatedAt
+  level       Level    @relation(fields: [levelId], references: [id])
+  levelId     String
+}
+
+model Level {
+  id           String       @id @default(cuid())
+  level        String       @unique
+  description  String
+  vocabularies Vocabulary[]
+  kanjis       Kanji[]
+  grammars     Grammar[]
+}
